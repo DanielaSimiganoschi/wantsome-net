@@ -21,9 +21,9 @@ namespace StudentsAndWorkers
             return moneyPerHour;
         }
 
-        public static void OrderAndPrintWorkers(List<Worker> listOFStuds)
+        public static void OrderAndPrintWorkers(List<Worker> listOfWorkers)
         {
-            var orderedList = listOFStuds.OrderBy(x => x.MoneyPerHour()).ToList();
+            var orderedList = listOfWorkers.OrderByDescending(x => x.MoneyPerHour()).ToList();
             foreach (var worker in orderedList)
             {
                 Console.WriteLine($"First Name: {worker.FirstName}, Last Name: {worker.LastName}, Money per Hour: {Math.Round(worker.MoneyPerHour(),2)}");

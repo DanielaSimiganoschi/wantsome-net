@@ -19,36 +19,36 @@ namespace StudentsAndWorkers
             Human stud9 = new Student("Paul", "Lupascu", 5.79m);
             Human stud10 = new Student("Andreea", "Isarie", 7.90m);
 
-            List<Human> listStuds = new List<Human>();
-            listStuds.AddRange(new List<Human>() { stud1, stud2, stud3, stud4, stud5, stud6, stud7, stud8, stud9, stud10});
+            List<Human> listStudentsH = new List<Human>();
+            listStudentsH.AddRange(new List<Human>() { stud1, stud2, stud3, stud4, stud5, stud6, stud7, stud8, stud9, stud10});
 
 
-            List<Student> studentList = listStuds.OfType<Student>().ToList();
+            List<Student> studentList = listStudentsH.OfType<Student>().ToList();
 
            Student.OrderAndPrintStudents(studentList);
 
-            Human worker1 = new Worker("Maria", "Ionescu", 520,5);
-            Human worker2 = new Worker("Marius", "Popescu", 620, 6);
-            Human worker3 = new Worker("Ioana", "Constantinescu", 459, 7);
-            Human worker4 = new Worker("Ionut", "David", 780, 4);
-            Human worker5 = new Worker("Claudiu", "Botez", 654, 9);
-            Human worker6 = new Worker("Claudia", "Popescu", 420, 3);
+            Human worker1 = new Worker("Maria", "Constantinescu", 520,5);
+            Human worker2 = new Worker("Marius", "Popa", 620, 6);
+            Human worker3 = new Worker("Ioana", "Sadoveanu", 459, 7);
+            Human worker4 = new Worker("Mirela", "David", 780, 4);
+            Human worker5 = new Worker("Diana", "Botez", 654, 9);
+            Human worker6 = new Worker("Claudia", "Schipor", 420, 3);
             Human worker7 = new Worker("Mirela", "Sirghe", 800, 7);
-            Human worker8 = new Worker("Dominic", "Iftodi", 120, 2);
-            Human worker9 = new Worker("Paul", "Lupascu", 1000, 8);
-            Human worker10 = new Worker("Andreea", "Isarie", 456, 4);
+            Human worker8 = new Worker("Maria", "Gabor", 120, 2);
+            Human worker9 = new Worker("Sonia", "Andronic", 1000, 8);
+            Human worker10 = new Worker("Andreea", "Gherca", 456, 4);
 
-            List<Human> listWorkers = new List<Human>();
-            listWorkers.AddRange(new List<Human>() { worker1, worker2, worker3, worker4, worker5, worker6, worker7, worker8, worker9, worker10 });
+            List<Human> listWorkersH = new List<Human>();
+            listWorkersH.AddRange(new List<Human>() { worker1, worker2, worker3, worker4, worker5, worker6, worker7, worker8, worker9, worker10 });
 
 
-            List<Worker> listOfWorkers = listWorkers.OfType<Worker>().ToList(); 
+            List<Worker> listOfWorkers = listWorkersH.OfType<Worker>().ToList(); 
 
 
            Worker.OrderAndPrintWorkers(listOfWorkers);
 
 
-            var allHumans = studentList.Concat(listWorkers).ToList();
+            var allHumans = listWorkersH.Concat(listStudentsH).ToList();
 
             Human.OrderAndPrintHumans(allHumans);
 
