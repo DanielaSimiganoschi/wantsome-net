@@ -9,5 +9,9 @@ namespace BusinessModelCar
         string NameStore { get; set; }
         string LocationStore { get; set; }
         int NumberOfWeeksDelivery { get; set; }
+     
+        void PlaceOrder(IOrder order);
+        void CancelOrder(IOrder order);
+        void AskForDelivery(IOrder order);
     }
 }

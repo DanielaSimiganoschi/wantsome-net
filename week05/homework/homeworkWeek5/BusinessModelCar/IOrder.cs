@@ -6,8 +6,8 @@ namespace BusinessModelCar
 {
     interface IOrder
     {
-        int OrderNumber { get; set; }
-        void PlaceOrder();
-        void CancelOrder();
+        string OrderNumber { get; set; }
+       
+        
     }
 }

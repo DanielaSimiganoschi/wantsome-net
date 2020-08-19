@@ -7,16 +7,22 @@ namespace BusinessModelCar
     class Order : IOrder
     {
 
-        public string OrderNumber;
+        public string OrderNumber { get; set; }
+        private IPerson person;
+        private IStore store;
+        private IVehicle vehicle;
 
         public void CancelOrder()
         {
 
         }
 
-        public void PlaceOrder(Person person, Store store, Vehicle vehicle)
-        { 
-            this.OrderNumber = System.Guid.NewGuid().ToString(); 
+        public Order (IPerson person, IStore store, IVehicle vehicle)
+        {
+            this.OrderNumber = Guid.NewGuid().ToString();
+            this.person = person;
+            this.store = store;
+            this.vehicle = vehicle;
         }
     }
 }

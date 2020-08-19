@@ -7,28 +7,28 @@ namespace BusinessModelCar
         static void Main(string[] args)
         {
 
-            Store FordStore = new Store("FordStore","Bucuresti");
-            Store SkodaStore = new Store("SkodaStore", "Bucuresti");
+            IStore FordStore = new Store("FordStore","Bucuresti");
+            IStore SkodaStore = new Store("SkodaStore", "Bucuresti");
 
-            Producer Skoda = new Producer("Skoda");
+            IProducer Skoda = new Producer("Skoda");
 
 
-            FordStore.AddProducer(Skoda);
-            SkodaStore.AddProducer(Skoda);
-
-            Vehicle SkodaOctavia = new Vehicle(Skoda,"Octavia", 2013, 15000);
-            Vehicle SkodaFabia = new Vehicle(Skoda, "Fabia", 2016, 17000);
-            Vehicle SkodaRapid = new Vehicle(Skoda, "Rapid", 2017, 9000);
+            IVehicle SkodaOctavia = new Vehicle(Skoda,"Octavia", 2013, 15000);
+            IVehicle SkodaFabia = new Vehicle(Skoda, "Fabia", 2016, 17000);
+            IVehicle SkodaRapid = new Vehicle(Skoda, "Rapid", 2017, 9000);
            
+            IPerson alex = new Person("Alex");
+            IOrder orderAlexFordStore = new Order(alex, FordStore, SkodaOctavia);
+            FordStore.AskForDelivery(orderAlexFordStore);
+            FordStore.PlaceOrder(orderAlexFordStore);
 
-            FordStore.AddVehicle(SkodaOctavia);
-            FordStore.AddVehicle(SkodaFabia);
+            IOrder orderAlexSkodaStore = new Order(alex, SkodaStore, SkodaOctavia);
 
-            SkodaStore.AddVehicle(SkodaOctavia);
-            SkodaStore.AddVehicle(SkodaFabia);
-            SkodaStore.AddVehicle(SkodaRapid);
-    
-            Person Alex = new Person()
+            SkodaStore.PlaceOrder(orderAlexSkodaStore);
+            FordStore.CancelOrder(orderAlexFordStore);
+
+
+
 
         }
     }

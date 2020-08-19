@@ -6,12 +6,13 @@ namespace BusinessModelCar
 {
     class Store : IStore
     {
+        
         public string NameStore { get; set; }
         public string LocationStore { get; set; }
         public int NumberOfWeeksDelivery { get; set; }
 
-        public List<Producer> ListOfProducers = new List<Producer>();
-        public List<Vehicle> ListOfVehicles = new List<Vehicle>();
+       
+        public List<IOrder> orderList = new List<IOrder>();
 
         public Store(string name, string location)
         {
@@ -19,14 +20,24 @@ namespace BusinessModelCar
             this.LocationStore = location;
         }
 
-        public void AddProducer(Producer producer)
+        public void PlaceOrder(IOrder order)
         {
-            ListOfProducers.Add(producer);
+            orderList.Add(order);
+          
         }
 
-        public void AddVehicle(Vehicle vehicle)
+        public void CancelOrder(IOrder order)
         {
-            ListOfVehicles.Add(vehicle);
+            if (orderList.Contains(order))
+            {
+                orderList.Remove(order);
+            }
         }
+
+        public void AskForDelivery(IOrder order)
+        {
+            Console.WriteLine($"Delivery time for your order will take "+ new Random().Next(1,10)+" weeks.");
+        }
+
     }
 }
