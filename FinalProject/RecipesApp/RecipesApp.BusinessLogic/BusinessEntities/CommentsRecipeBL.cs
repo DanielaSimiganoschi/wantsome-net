@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace RecipesApp.BusinessLogic.BusinessEntities
 {
-    class CommentsBL
+    public class CommentsRecipeBL
     {
+        public int CommentsRecipeID { get; set; }
         public int CommentID { get; set; }
-        public string Comment { get; set; }
+        public int RecipeID { get; set; }
+        public string CommentText { get; set; }
     }
 }

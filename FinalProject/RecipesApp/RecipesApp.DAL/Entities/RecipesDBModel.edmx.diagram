@@ -7,7 +7,6 @@
       <Diagram DiagramId="9c6059c1bec44e6796e26e2f499d1c85" Name="Diagram1">
         <EntityTypeShape EntityType="RecipesDBModel.Category" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RecipesDBModel.CategoryRecipe" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipesDBModel.Comments" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="RecipesDBModel.CommentsRecipe" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RecipesDBModel.Ingredients" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RecipesDBModel.IngredientsRecipe" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
@@ -17,7 +16,6 @@
         <EntityTypeShape EntityType="RecipesDBModel.SubcategoryRecipe" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="RecipesDBModel.FK__CategoryR__Categ__267ABA7A" ManuallyRouted="false" />
         <AssociationConnector Association="RecipesDBModel.FK__CategoryR__Recip__2E1BDC42" ManuallyRouted="false" />
-        <AssociationConnector Association="RecipesDBModel.FK__CommentsR__Comme__440B1D61" ManuallyRouted="false" />
         <AssociationConnector Association="RecipesDBModel.FK__CommentsR__Recip__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="RecipesDBModel.FK__Ingredien__Ingre__34C8D9D1" ManuallyRouted="false" />
         <AssociationConnector Association="RecipesDBModel.FK__Ingredien__Recip__33D4B598" ManuallyRouted="false" />
@@ -26,6 +24,8 @@
         <AssociationConnector Association="RecipesDBModel.FK__Subcatego__Subca__2B3F6F97" ManuallyRouted="false" />
         <EntityTypeShape EntityType="RecipesDBModel.Instructions" Width="1.5" PointX="5.25" PointY="13" />
         <AssociationConnector Association="RecipesDBModel.FK__Instructi__Recip__4BAC3F29" />
+        <EntityTypeShape EntityType="RecipesDBModel.Comments" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="RecipesDBModel.FK__CommentsR__Comme__440B1D61" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

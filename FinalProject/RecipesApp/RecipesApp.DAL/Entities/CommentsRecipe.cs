@@ -18,7 +18,7 @@ namespace RecipesApp.DAL.Entities
         public int CommentID { get; set; }
         public int RecipeID { get; set; }
     
-        public virtual Comments Comments { get; set; }
         public virtual Recipe Recipe { get; set; }
+        public virtual Comments Comments { get; set; }
     }
 }

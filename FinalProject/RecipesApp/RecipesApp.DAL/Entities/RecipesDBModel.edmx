@@ -25,7 +25,6 @@
             <PropertyRef Name="CommentID" />
           </Key>
           <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Rating" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="CommentsRecipe">
@@ -292,15 +291,6 @@
           <NavigationProperty Name="Category" Relationship="Self.FK__CategoryR__Categ__267ABA7A" FromRole="CategoryRecipe" ToRole="Category" />
           <NavigationProperty Name="Recipe" Relationship="Self.FK__CategoryR__Recip__2E1BDC42" FromRole="CategoryRecipe" ToRole="Recipe" />
         </EntityType>
-        <EntityType Name="Comments">
-          <Key>
-            <PropertyRef Name="CommentID" />
-          </Key>
-          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Rating" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="CommentsRecipe" Relationship="Self.FK__CommentsR__Comme__440B1D61" FromRole="Comments" ToRole="CommentsRecipe" />
-        </EntityType>
         <EntityType Name="CommentsRecipe">
           <Key>
             <PropertyRef Name="CommentsRecipeID" />
@@ -308,8 +298,8 @@
           <Property Name="CommentsRecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CommentID" Type="Int32" Nullable="false" />
           <Property Name="RecipeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK__CommentsR__Comme__440B1D61" FromRole="CommentsRecipe" ToRole="Comments" />
           <NavigationProperty Name="Recipe" Relationship="Self.FK__CommentsR__Recip__44FF419A" FromRole="CommentsRecipe" ToRole="Recipe" />
+          <NavigationProperty Name="Comments" Relationship="RecipesDBModel.FK__CommentsR__Comme__440B1D61" FromRole="CommentsRecipe" ToRole="Comments" />
         </EntityType>
         <EntityType Name="Ingredients">
           <Key>
@@ -401,18 +391,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CommentsR__Comme__440B1D61">
-          <End Role="Comments" Type="Self.Comments" Multiplicity="1" />
-          <End Role="CommentsRecipe" Type="Self.CommentsRecipe" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Comments">
-              <PropertyRef Name="CommentID" />
-            </Principal>
-            <Dependent Role="CommentsRecipe">
-              <PropertyRef Name="CommentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__CommentsR__Recip__44FF419A">
           <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
           <End Role="CommentsRecipe" Type="Self.CommentsRecipe" Multiplicity="*" />
@@ -488,7 +466,6 @@
         <EntityContainer Name="RecipesDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="CategoryRecipe" EntityType="Self.CategoryRecipe" />
-          <EntitySet Name="Comments" EntityType="Self.Comments" />
           <EntitySet Name="CommentsRecipe" EntityType="Self.CommentsRecipe" />
           <EntitySet Name="Ingredients" EntityType="Self.Ingredients" />
           <EntitySet Name="IngredientsRecipe" EntityType="Self.IngredientsRecipe" />
@@ -503,10 +480,6 @@
           <AssociationSet Name="FK__CategoryR__Recip__2E1BDC42" Association="Self.FK__CategoryR__Recip__2E1BDC42">
             <End Role="Recipe" EntitySet="Recipe" />
             <End Role="CategoryRecipe" EntitySet="CategoryRecipe" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CommentsR__Comme__440B1D61" Association="Self.FK__CommentsR__Comme__440B1D61">
-            <End Role="Comments" EntitySet="Comments" />
-            <End Role="CommentsRecipe" EntitySet="CommentsRecipe" />
           </AssociationSet>
           <AssociationSet Name="FK__CommentsR__Recip__44FF419A" Association="Self.FK__CommentsR__Recip__44FF419A">
             <End Role="Recipe" EntitySet="Recipe" />
@@ -537,6 +510,11 @@
             <End Role="Recipe" EntitySet="Recipe" />
             <End Role="Instructions" EntitySet="Instructions" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="RecipesDBModel.Comments" />
+          <AssociationSet Name="FK__CommentsR__Comme__440B1D61" Association="RecipesDBModel.FK__CommentsR__Comme__440B1D61">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="CommentsRecipe" EntitySet="CommentsRecipe" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Instructions">
           <Key>
@@ -556,6 +534,26 @@
             </Principal>
             <Dependent Role="Instructions">
               <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CommentsRecipe" Relationship="RecipesDBModel.FK__CommentsR__Comme__440B1D61" FromRole="Comments" ToRole="CommentsRecipe" />
+        </EntityType>
+        <Association Name="FK__CommentsR__Comme__440B1D61">
+          <End Type="RecipesDBModel.Comments" Role="Comments" Multiplicity="1" />
+          <End Type="RecipesDBModel.CommentsRecipe" Role="CommentsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comments">
+              <PropertyRef Name="CommentID" />
+            </Principal>
+            <Dependent Role="CommentsRecipe">
+              <PropertyRef Name="CommentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -579,15 +577,6 @@
                 <ScalarProperty Name="CategoryRecipeID" ColumnName="CategoryRecipeID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="RecipesDBModel.Comments">
-              <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-                <ScalarProperty Name="Rating" ColumnName="Rating" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -665,6 +654,14 @@
                 <ScalarProperty Name="InstructionText" ColumnName="InstructionText" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
                 <ScalarProperty Name="InstructionID" ColumnName="InstructionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="RecipesDBModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

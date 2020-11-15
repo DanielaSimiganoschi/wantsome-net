@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 @{
     ViewBag.Title = "Recipes List";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,10 +27,8 @@
         <td style="width:40%;line-height: normal;">
             @foreach (var i in Model.ListIngredients)
             {
-               
-                    <span>@i.Quantity <b>@i.Name</b></span>
-              <br /><br />
-
+                <span>@i.Quantity <b>@i.Name</b></span>
+                <br /><br />
             }
         </td>
         <td>
@@ -47,9 +43,29 @@
     {
         a++;
         <div>
-            <span>Instruction @a:</span>
-            <div>@i.InstructionText</div>
-        </div>
+            <span><i>Instruction @a:</i></span><br />
+            <span>@i.InstructionText</span>
+        </div> <br />
 
     }
+}
+
+<br /><br />
+<h3>Comments:</h3><br />
+@foreach (var i in Model.ListComments)
+{
+    <div style="border:1px solid black; padding:5px 7px;">@i.Comment</div><br />
+}
+
+@using (Html.BeginForm("View", "Recipe", FormMethod.Post))
+{
+    <label>
+        Insert new Comment:
+    </label>
+    <div class="form-group">
+        @Html.EditorFor(model => model.NewComment, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.NewComment, "", new { @class = "text-danger" })
+    </div>
+    @Html.HiddenFor(x => Model.RecipeID)
+    <input type="submit" value="Insert Comment" />
 }

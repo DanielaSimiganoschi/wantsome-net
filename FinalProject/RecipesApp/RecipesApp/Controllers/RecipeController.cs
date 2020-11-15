@@ -18,6 +18,7 @@ namespace RecipesApp.Controllers
         private readonly IngredientService ingredientService;
         private readonly InstructionsService instructionsService;
         private readonly RatingService ratingService;
+        private readonly CommentService commentService;
 
         public RecipeController()
         {
@@ -27,6 +28,7 @@ namespace RecipesApp.Controllers
             ingredientService = new IngredientService();
             instructionsService = new InstructionsService();
             ratingService = new RatingService();
+            commentService = new CommentService();
 
         }
 
@@ -161,9 +163,12 @@ namespace RecipesApp.Controllers
             };
             var ingredientsBL = ingredientService.GetAllIngredientsForRecipe(recipe.RecipeID);
             var instructionsBL = instructionsService.GetAllInstructionsForRecipe(recipe.RecipeID);
+            var commentsBL = commentService.GetAllCommentsForRecipe(recipe.RecipeID);
+           
 
             var ingredients = new List<IngredientViewModel>();
             var instructions = new List<InstructionViewModel>();
+            var comments = new List<CommentsViewModel>();
 
             foreach (var i in ingredientsBL)
             {
@@ -183,10 +188,36 @@ namespace RecipesApp.Controllers
                     InstructionText = i.InstructionText
                 });
             }
+
+            foreach (var i in commentsBL)
+            {
+                comments.Add(new CommentsViewModel()
+                {
+                    CommentID = i.CommentID,
+                    Comment = i.CommentText,
+                    RecipeID = id
+                });
+            }
+
             recipe.ListIngredients = ingredients;
             recipe.ListInstructions = instructions;
+           recipe.ListComments = comments;
             return View(recipe);
         }
+
+
+        [HttpPost]
+        [ActionName("View")]
+        public ActionResult ViewComments(RecipeViewModel recipe)
+        {
+            var id = commentService.CreateNewComment(recipe.NewComment);
+            commentService.InsertCommentForRecipe(recipe.RecipeID, id);
+
+            return RedirectToAction("View", "Recipe", new {
+                id = recipe.RecipeID
+            });
+        }
+
 
 
         [HttpGet]

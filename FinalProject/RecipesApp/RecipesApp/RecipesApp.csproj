@@ -135,6 +135,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\CommentsViewModel.cs" />
     <Compile Include="Models\FilterRecipesViewModel.cs" />
     <Compile Include="Models\IngredientListViewModel.cs" />
     <Compile Include="Models\IngredientViewModel.cs" />

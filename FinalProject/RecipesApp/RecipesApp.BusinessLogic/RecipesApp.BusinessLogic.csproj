@@ -45,6 +45,7 @@
     <Compile Include="BusinessEntities\CategoryBL.cs" />
     <Compile Include="BusinessEntities\CategoryRecipeBL.cs" />
     <Compile Include="BusinessEntities\CommentsBL.cs" />
+    <Compile Include="BusinessEntities\CommentsRecipeBL.cs" />
     <Compile Include="BusinessEntities\IngredientsBL.cs" />
     <Compile Include="BusinessEntities\IngredientsRecipeBL.cs" />
     <Compile Include="BusinessEntities\InstructionsBL.cs" />

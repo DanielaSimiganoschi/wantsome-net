@@ -51,15 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentsRepository.cs" />
+    <Compile Include="Entities\Comments.cs">
+      <DependentUpon>RecipesDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SubcategoryRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="Entities\Category.cs">
       <DependentUpon>RecipesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\CategoryRecipe.cs">
-      <DependentUpon>RecipesDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Comments.cs">
       <DependentUpon>RecipesDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\CommentsRecipe.cs">
@@ -125,6 +126,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBScript\Inserts.sql" />
+    <Content Include="DBScript\RecipesAppDB.sql" />
     <Content Include="Entities\RecipesDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RecipesDBModel.edmx</DependentUpon>

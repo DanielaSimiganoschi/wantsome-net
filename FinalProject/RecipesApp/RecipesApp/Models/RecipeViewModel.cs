@@ -28,12 +28,15 @@ namespace RecipesApp.Models
         public int NrOfInstructions { get; set; }
        
         public bool IsDeleted { get; set; }
+
+        public string NewComment { get; set; }
         public List<CategoryViewModel> Categories { get; set; }
 
         public List<SubcategoryViewModel> Subcategories { get; set; }
 
         public List<IngredientViewModel> ListIngredients { get; set; }
         public List<InstructionViewModel> ListInstructions { get; set; }
+        public List<CommentsViewModel> ListComments { get; set; }
 
 
         public RecipeViewModel()
@@ -42,6 +45,7 @@ namespace RecipesApp.Models
             Subcategories = new List<SubcategoryViewModel>();
             ListIngredients = new List<IngredientViewModel>();
             ListInstructions = new List<InstructionViewModel>();
+            ListComments = new List<CommentsViewModel>();
 
         }
     }

@@ -24,12 +24,12 @@ namespace RecipesApp.BusinessLogic
         }
         public int CreateNewIngredient(string name)
         {
-            IngredientRepository i = new IngredientRepository();
+
             var ingredientDAL = new Ingredients()
             {
                 Name = name
             };
-           int id = i.Create(ingredientDAL);
+           int id = ingredientRepository.Create(ingredientDAL);
             return id;
 
         }
