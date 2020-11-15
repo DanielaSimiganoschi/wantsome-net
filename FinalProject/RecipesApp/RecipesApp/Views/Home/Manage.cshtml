@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Manage Recipes";
+}
+<h2>@ViewBag.Title.</h2>
+
+<span>Please enter the ID of the recipe you want to update/delete and then click on the corresponding button</span><br /><br />
+<input id="text" type="text" />
+<button type="button" id="updateByID" class="btn btn-light">Update a Recipe By ID</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" id="deleteByID" class="btn btn-light">Delete a Recipe By ID</button><br /><br />
+<span>OR click on the button below to create a new Recipe</span><br /><br />
+<button type="button" id="createRecipe" class="btn btn-light">Create a new Recipe</button>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $("#updateByID").click(function(event){
+       event.preventDefault();
+       window.location.href = "@Url.Action("Update", "Recipe")" + "?id=" + $("#text").val();
+    });
+    })
+        $(document).ready(function(){
+    $("#deleteByID").click(function(event){
+       event.preventDefault();
+       window.location.href = "@Url.Action("Delete", "Recipe")" + "?id=" + $("#text").val();
+    });
+        })
+     $(document).ready(function(){
+    $("#createRecipe").click(function(event){
+       event.preventDefault();
+       window.location.href = "@Url.Action("Create", "Recipe")";
+    });
+        })
+
+
+
+    </script>
+}

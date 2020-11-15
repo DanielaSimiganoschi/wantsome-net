@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RecipesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryRecipe">
+          <Key>
+            <PropertyRef Name="CategoryRecipeID" />
+          </Key>
+          <Property Name="CategoryRecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommentsRecipe">
+          <Key>
+            <PropertyRef Name="CommentsRecipeID" />
+          </Key>
+          <Property Name="CommentsRecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentID" Type="int" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingredients">
+          <Key>
+            <PropertyRef Name="IngredientID" />
+          </Key>
+          <Property Name="IngredientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IngredientsRecipe">
+          <Key>
+            <PropertyRef Name="IngredientsRecipeID" />
+          </Key>
+          <Property Name="IngredientsRecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+          <Property Name="IngredientID" Type="int" Nullable="false" />
+          <Property Name="IngredientQuantity" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructions">
+          <Key>
+            <PropertyRef Name="InstructionID" />
+          </Key>
+          <Property Name="InstructionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+          <Property Name="InstructionText" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumberOfRatings" Type="int" Nullable="false" />
+          <Property Name="Score" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="SumRatings" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="RecipeID" />
+          </Key>
+          <Property Name="RecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LongDescription" Type="text" Nullable="false" />
+          <Property Name="PictureLocation" Type="nvarchar" MaxLength="500" />
+          <Property Name="RatingID" Type="int" Nullable="false" />
+          <Property Name="PrepTime" Type="int" Nullable="false" />
+          <Property Name="CookTime" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subcategory">
+          <Key>
+            <PropertyRef Name="SubcategoryID" />
+          </Key>
+          <Property Name="SubcategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubcategoryRecipe">
+          <Key>
+            <PropertyRef Name="SubcategoryRecipeID" />
+          </Key>
+          <Property Name="SubcategoryRecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubcategoryID" Type="int" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CategoryR__Categ__267ABA7A">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoryRecipe" Type="Self.CategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoryRecipe">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryR__Recip__2E1BDC42">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="CategoryRecipe" Type="Self.CategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="CategoryRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentsR__Comme__440B1D61">
+          <End Role="Comments" Type="Self.Comments" Multiplicity="1" />
+          <End Role="CommentsRecipe" Type="Self.CommentsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comments">
+              <PropertyRef Name="CommentID" />
+            </Principal>
+            <Dependent Role="CommentsRecipe">
+              <PropertyRef Name="CommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentsR__Recip__44FF419A">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="CommentsRecipe" Type="Self.CommentsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="CommentsRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ingredien__Ingre__34C8D9D1">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1" />
+          <End Role="IngredientsRecipe" Type="Self.IngredientsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="IngredientID" />
+            </Principal>
+            <Dependent Role="IngredientsRecipe">
+              <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ingredien__Recip__33D4B598">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="IngredientsRecipe" Type="Self.IngredientsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="IngredientsRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instructi__Recip__4BAC3F29">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="Instructions" Type="Self.Instructions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="Instructions">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recipe__RatingID__48CFD27E">
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="1" />
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Recipe">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subcatego__Recip__2F10007B">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="SubcategoryRecipe" Type="Self.SubcategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="SubcategoryRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subcatego__Subca__2B3F6F97">
+          <End Role="Subcategory" Type="Self.Subcategory" Multiplicity="1" />
+          <End Role="SubcategoryRecipe" Type="Self.SubcategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategory">
+              <PropertyRef Name="SubcategoryID" />
+            </Principal>
+            <Dependent Role="SubcategoryRecipe">
+              <PropertyRef Name="SubcategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecipesDBModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryRecipe" EntityType="Self.CategoryRecipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommentsRecipe" EntityType="Self.CommentsRecipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IngredientsRecipe" EntityType="Self.IngredientsRecipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subcategory" EntityType="Self.Subcategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubcategoryRecipe" EntityType="Self.SubcategoryRecipe" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CategoryR__Categ__267ABA7A" Association="Self.FK__CategoryR__Categ__267ABA7A">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryRecipe" EntitySet="CategoryRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryR__Recip__2E1BDC42" Association="Self.FK__CategoryR__Recip__2E1BDC42">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="CategoryRecipe" EntitySet="CategoryRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentsR__Comme__440B1D61" Association="Self.FK__CommentsR__Comme__440B1D61">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="CommentsRecipe" EntitySet="CommentsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentsR__Recip__44FF419A" Association="Self.FK__CommentsR__Recip__44FF419A">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="CommentsRecipe" EntitySet="CommentsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ingredien__Ingre__34C8D9D1" Association="Self.FK__Ingredien__Ingre__34C8D9D1">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="IngredientsRecipe" EntitySet="IngredientsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ingredien__Recip__33D4B598" Association="Self.FK__Ingredien__Recip__33D4B598">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="IngredientsRecipe" EntitySet="IngredientsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Instructi__Recip__4BAC3F29" Association="Self.FK__Instructi__Recip__4BAC3F29">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="Instructions" EntitySet="Instructions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recipe__RatingID__48CFD27E" Association="Self.FK__Recipe__RatingID__48CFD27E">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="Recipe" EntitySet="Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subcatego__Recip__2F10007B" Association="Self.FK__Subcatego__Recip__2F10007B">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="SubcategoryRecipe" EntitySet="SubcategoryRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subcatego__Subca__2B3F6F97" Association="Self.FK__Subcatego__Subca__2B3F6F97">
+            <End Role="Subcategory" EntitySet="Subcategory" />
+            <End Role="SubcategoryRecipe" EntitySet="SubcategoryRecipe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RecipesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CategoryRecipe" Relationship="Self.FK__CategoryR__Categ__267ABA7A" FromRole="Category" ToRole="CategoryRecipe" />
+        </EntityType>
+        <EntityType Name="CategoryRecipe">
+          <Key>
+            <PropertyRef Name="CategoryRecipeID" />
+          </Key>
+          <Property Name="CategoryRecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__CategoryR__Categ__267ABA7A" FromRole="CategoryRecipe" ToRole="Category" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__CategoryR__Recip__2E1BDC42" FromRole="CategoryRecipe" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CommentsRecipe" Relationship="Self.FK__CommentsR__Comme__440B1D61" FromRole="Comments" ToRole="CommentsRecipe" />
+        </EntityType>
+        <EntityType Name="CommentsRecipe">
+          <Key>
+            <PropertyRef Name="CommentsRecipeID" />
+          </Key>
+          <Property Name="CommentsRecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentID" Type="Int32" Nullable="false" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__CommentsR__Comme__440B1D61" FromRole="CommentsRecipe" ToRole="Comments" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__CommentsR__Recip__44FF419A" FromRole="CommentsRecipe" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Ingredients">
+          <Key>
+            <PropertyRef Name="IngredientID" />
+          </Key>
+          <Property Name="IngredientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="IngredientsRecipe" Relationship="Self.FK__Ingredien__Ingre__34C8D9D1" FromRole="Ingredients" ToRole="IngredientsRecipe" />
+        </EntityType>
+        <EntityType Name="IngredientsRecipe">
+          <Key>
+            <PropertyRef Name="IngredientsRecipeID" />
+          </Key>
+          <Property Name="IngredientsRecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <Property Name="IngredientID" Type="Int32" Nullable="false" />
+          <Property Name="IngredientQuantity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Ingredients" Relationship="Self.FK__Ingredien__Ingre__34C8D9D1" FromRole="IngredientsRecipe" ToRole="Ingredients" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__Ingredien__Recip__33D4B598" FromRole="IngredientsRecipe" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumberOfRatings" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="SumRatings" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__Recipe__RatingID__48CFD27E" FromRole="Ratings" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="RecipeID" />
+          </Key>
+          <Property Name="RecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PictureLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RatingID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CategoryRecipe" Relationship="Self.FK__CategoryR__Recip__2E1BDC42" FromRole="Recipe" ToRole="CategoryRecipe" />
+          <NavigationProperty Name="CommentsRecipe" Relationship="Self.FK__CommentsR__Recip__44FF419A" FromRole="Recipe" ToRole="CommentsRecipe" />
+          <NavigationProperty Name="IngredientsRecipe" Relationship="Self.FK__Ingredien__Recip__33D4B598" FromRole="Recipe" ToRole="IngredientsRecipe" />
+          <NavigationProperty Name="Ratings" Relationship="Self.FK__Recipe__RatingID__48CFD27E" FromRole="Recipe" ToRole="Ratings" />
+          <NavigationProperty Name="SubcategoryRecipe" Relationship="Self.FK__Subcatego__Recip__2F10007B" FromRole="Recipe" ToRole="SubcategoryRecipe" />
+          <Property Name="PrepTime" Type="Int32" Nullable="false" />
+          <Property Name="CookTime" Type="Int32" Nullable="false" />
+          <Property Name="LongDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Instructions" Relationship="RecipesDBModel.FK__Instructi__Recip__4BAC3F29" FromRole="Recipe" ToRole="Instructions" />
+        </EntityType>
+        <EntityType Name="Subcategory">
+          <Key>
+            <PropertyRef Name="SubcategoryID" />
+          </Key>
+          <Property Name="SubcategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SubcategoryRecipe" Relationship="Self.FK__Subcatego__Subca__2B3F6F97" FromRole="Subcategory" ToRole="SubcategoryRecipe" />
+        </EntityType>
+        <EntityType Name="SubcategoryRecipe">
+          <Key>
+            <PropertyRef Name="SubcategoryRecipeID" />
+          </Key>
+          <Property Name="SubcategoryRecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubcategoryID" Type="Int32" Nullable="false" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK__Subcatego__Recip__2F10007B" FromRole="SubcategoryRecipe" ToRole="Recipe" />
+          <NavigationProperty Name="Subcategory" Relationship="Self.FK__Subcatego__Subca__2B3F6F97" FromRole="SubcategoryRecipe" ToRole="Subcategory" />
+        </EntityType>
+        <Association Name="FK__CategoryR__Categ__267ABA7A">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoryRecipe" Type="Self.CategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="CategoryRecipe">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryR__Recip__2E1BDC42">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="CategoryRecipe" Type="Self.CategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="CategoryRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentsR__Comme__440B1D61">
+          <End Role="Comments" Type="Self.Comments" Multiplicity="1" />
+          <End Role="CommentsRecipe" Type="Self.CommentsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comments">
+              <PropertyRef Name="CommentID" />
+            </Principal>
+            <Dependent Role="CommentsRecipe">
+              <PropertyRef Name="CommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentsR__Recip__44FF419A">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="CommentsRecipe" Type="Self.CommentsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="CommentsRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ingredien__Ingre__34C8D9D1">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1" />
+          <End Role="IngredientsRecipe" Type="Self.IngredientsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="IngredientID" />
+            </Principal>
+            <Dependent Role="IngredientsRecipe">
+              <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ingredien__Recip__33D4B598">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="IngredientsRecipe" Type="Self.IngredientsRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="IngredientsRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recipe__RatingID__48CFD27E">
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="1" />
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Recipe">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subcatego__Recip__2F10007B">
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+          <End Role="SubcategoryRecipe" Type="Self.SubcategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="SubcategoryRecipe">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subcatego__Subca__2B3F6F97">
+          <End Role="Subcategory" Type="Self.Subcategory" Multiplicity="1" />
+          <End Role="SubcategoryRecipe" Type="Self.SubcategoryRecipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategory">
+              <PropertyRef Name="SubcategoryID" />
+            </Principal>
+            <Dependent Role="SubcategoryRecipe">
+              <PropertyRef Name="SubcategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecipesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="CategoryRecipe" EntityType="Self.CategoryRecipe" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" />
+          <EntitySet Name="CommentsRecipe" EntityType="Self.CommentsRecipe" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredients" />
+          <EntitySet Name="IngredientsRecipe" EntityType="Self.IngredientsRecipe" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" />
+          <EntitySet Name="Subcategory" EntityType="Self.Subcategory" />
+          <EntitySet Name="SubcategoryRecipe" EntityType="Self.SubcategoryRecipe" />
+          <AssociationSet Name="FK__CategoryR__Categ__267ABA7A" Association="Self.FK__CategoryR__Categ__267ABA7A">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryRecipe" EntitySet="CategoryRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryR__Recip__2E1BDC42" Association="Self.FK__CategoryR__Recip__2E1BDC42">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="CategoryRecipe" EntitySet="CategoryRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentsR__Comme__440B1D61" Association="Self.FK__CommentsR__Comme__440B1D61">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="CommentsRecipe" EntitySet="CommentsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentsR__Recip__44FF419A" Association="Self.FK__CommentsR__Recip__44FF419A">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="CommentsRecipe" EntitySet="CommentsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ingredien__Ingre__34C8D9D1" Association="Self.FK__Ingredien__Ingre__34C8D9D1">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="IngredientsRecipe" EntitySet="IngredientsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ingredien__Recip__33D4B598" Association="Self.FK__Ingredien__Recip__33D4B598">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="IngredientsRecipe" EntitySet="IngredientsRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recipe__RatingID__48CFD27E" Association="Self.FK__Recipe__RatingID__48CFD27E">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="Recipe" EntitySet="Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subcatego__Recip__2F10007B" Association="Self.FK__Subcatego__Recip__2F10007B">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="SubcategoryRecipe" EntitySet="SubcategoryRecipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subcatego__Subca__2B3F6F97" Association="Self.FK__Subcatego__Subca__2B3F6F97">
+            <End Role="Subcategory" EntitySet="Subcategory" />
+            <End Role="SubcategoryRecipe" EntitySet="SubcategoryRecipe" />
+          </AssociationSet>
+          <EntitySet Name="Instructions" EntityType="RecipesDBModel.Instructions" />
+          <AssociationSet Name="FK__Instructi__Recip__4BAC3F29" Association="RecipesDBModel.FK__Instructi__Recip__4BAC3F29">
+            <End Role="Recipe" EntitySet="Recipe" />
+            <End Role="Instructions" EntitySet="Instructions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Instructions">
+          <Key>
+            <PropertyRef Name="InstructionID" />
+          </Key>
+          <Property Name="InstructionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <Property Name="InstructionText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recipe" Relationship="RecipesDBModel.FK__Instructi__Recip__4BAC3F29" FromRole="Instructions" ToRole="Recipe" />
+        </EntityType>
+        <Association Name="FK__Instructi__Recip__4BAC3F29">
+          <End Type="RecipesDBModel.Recipe" Role="Recipe" Multiplicity="1" />
+          <End Type="RecipesDBModel.Instructions" Role="Instructions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="Instructions">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RecipesDBModelStoreContainer" CdmEntityContainer="RecipesDBEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="RecipesDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryRecipe">
+            <EntityTypeMapping TypeName="RecipesDBModel.CategoryRecipe">
+              <MappingFragment StoreEntitySet="CategoryRecipe">
+                <ScalarProperty Name="CategoryRecipeID" ColumnName="CategoryRecipeID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="RecipesDBModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommentsRecipe">
+            <EntityTypeMapping TypeName="RecipesDBModel.CommentsRecipe">
+              <MappingFragment StoreEntitySet="CommentsRecipe">
+                <ScalarProperty Name="CommentsRecipeID" ColumnName="CommentsRecipeID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredients">
+            <EntityTypeMapping TypeName="RecipesDBModel.Ingredients">
+              <MappingFragment StoreEntitySet="Ingredients">
+                <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IngredientsRecipe">
+            <EntityTypeMapping TypeName="RecipesDBModel.IngredientsRecipe">
+              <MappingFragment StoreEntitySet="IngredientsRecipe">
+                <ScalarProperty Name="IngredientsRecipeID" ColumnName="IngredientsRecipeID" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+                <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
+                <ScalarProperty Name="IngredientQuantity" ColumnName="IngredientQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="RecipesDBModel.Ratings">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="NumberOfRatings" ColumnName="NumberOfRatings" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="SumRatings" ColumnName="SumRatings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipe">
+            <EntityTypeMapping TypeName="RecipesDBModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipe">
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="CookTime" ColumnName="CookTime" />
+                <ScalarProperty Name="PrepTime" ColumnName="PrepTime" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PictureLocation" ColumnName="PictureLocation" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subcategory">
+            <EntityTypeMapping TypeName="RecipesDBModel.Subcategory">
+              <MappingFragment StoreEntitySet="Subcategory">
+                <ScalarProperty Name="SubcategoryID" ColumnName="SubcategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubcategoryRecipe">
+            <EntityTypeMapping TypeName="RecipesDBModel.SubcategoryRecipe">
+              <MappingFragment StoreEntitySet="SubcategoryRecipe">
+                <ScalarProperty Name="SubcategoryRecipeID" ColumnName="SubcategoryRecipeID" />
+                <ScalarProperty Name="SubcategoryID" ColumnName="SubcategoryID" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructions">
+            <EntityTypeMapping TypeName="RecipesDBModel.Instructions">
+              <MappingFragment StoreEntitySet="Instructions">
+                <ScalarProperty Name="InstructionText" ColumnName="InstructionText" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+                <ScalarProperty Name="InstructionID" ColumnName="InstructionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

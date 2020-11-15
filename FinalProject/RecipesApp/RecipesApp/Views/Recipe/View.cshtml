@@ -1,0 +1,55 @@
+﻿@model RecipesApp.Models.RecipeViewModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@{
+    ViewBag.Title = "Recipes List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<br />
+<br />
+
+<h2>@Model.Name</h2>
+<br /><br />
+<div>
+    @Model.Description
+</div>
+
+<div>
+    @Model.LongDescription
+</div>
+<br />
+<h3>Ingredients:</h3><br />
+
+<table style="width:100%">
+    <tr style="width:100%">
+        <td style="width:40%;line-height: normal;">
+            @foreach (var i in Model.ListIngredients)
+            {
+               
+                    <span>@i.Quantity <b>@i.Name</b></span>
+              <br /><br />
+
+            }
+        </td>
+        <td>
+            <img style="width:50%" src="@Model.PictureLocation" alt=""></img>
+        </td>
+    </tr>
+</table>
+
+<h3>Instructions:</h3><br />
+@{var a = 0;
+    foreach (var i in Model.ListInstructions)
+    {
+        a++;
+        <div>
+            <span>Instruction @a:</span>
+            <div>@i.InstructionText</div>
+        </div>
+
+    }
+}

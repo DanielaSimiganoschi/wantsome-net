@@ -1,0 +1,59 @@
+﻿@model List<RecipesApp.Models.RecipeViewModel>
+
+
+@{
+    ViewBag.Title = "Results Filter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br /><br />
+
+<h2>Food Recipes</h2><br /><br />
+Filter results
+<p> Number of recipes: @Model.Count.</p>
+<div class="table-responsive">
+    <table class="table">
+
+
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td style="border:1px solid grey" width="50%">
+                    <table>
+                        <tr>
+                            <td style="width:30%;"><img style="width:300px" src="@Model[i].PictureLocation" alt=""></img></td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <b><h2>@Model[i].Name</h2></b>
+                                            <br />
+                                            @Model[i].Description
+                                            <br />
+                                            @Model[i].PrepTime minutes
+                                            <br />
+                                            @Model[i].CookTime minutes
+                                            <br />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="align-content:center;width:50%;"><button type="button" class="btn btn-light">@Html.ActionLink("View Recipe", "View", "Recipe", new { id = Model[i].RecipeID }, null)</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="align-content:center;width:50%;"><button type="button" class="btn btn-light">@Html.ActionLink("Update Recipe", "Update", "Recipe", new { id = Model[i].RecipeID }, null)</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="align-content:center;width:50%;"><button type="button" class="btn btn-light">@Html.ActionLink("Delete Recipe", "Delete", "Recipe", new { id = Model[i].RecipeID }, null)</button></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
