@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RecipesApp.BusinessLogic.BusinessEntities
 {
-    class RatingsBL
+   public  class RatingsBL
     {
         public int RatingID { get; set; }
         public int NumberOfRatings { get; set; }

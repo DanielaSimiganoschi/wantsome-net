@@ -23,9 +23,7 @@ namespace RecipesApp.DAL
             db.Ratings.Add(rating);
             db.SaveChanges();
             return rating.RatingID;
+         }
 
-        }
-
-      
     }
 }

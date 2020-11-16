@@ -1,4 +1,5 @@
-﻿using RecipesApp.DAL;
+﻿using RecipesApp.BusinessLogic.BusinessEntities;
+using RecipesApp.DAL;
 using RecipesApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,24 @@ namespace RecipesApp.BusinessLogic
 
         }
 
-
-
         public void Delete(int id)
         {
             ratingRepositoryG.Delete(id);
         }
+
+        public RatingsBL GetRatingByID(int id)
+        {
+           var ratingDAL = ratingRepositoryG.Get(id);
+
+            var ratingBL = new RatingsBL()
+            {
+                RatingID = ratingDAL.RatingID,
+                NumberOfRatings = ratingDAL.NumberOfRatings,
+                Score = ratingDAL.Score,
+                SumRatings = ratingDAL.SumRatings
+            };
+            return ratingBL;
+        }
+
     }
 }

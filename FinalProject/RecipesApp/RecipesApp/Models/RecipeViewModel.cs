@@ -30,6 +30,11 @@ namespace RecipesApp.Models
         public bool IsDeleted { get; set; }
 
         public string NewComment { get; set; }
+
+        public decimal Score { get; set; }
+
+        public int NrOfRatings { get; set; }
+
         public List<CategoryViewModel> Categories { get; set; }
 
         public List<SubcategoryViewModel> Subcategories { get; set; }

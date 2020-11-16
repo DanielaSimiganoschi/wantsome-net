@@ -164,11 +164,20 @@ namespace RecipesApp.Controllers
             var ingredientsBL = ingredientService.GetAllIngredientsForRecipe(recipe.RecipeID);
             var instructionsBL = instructionsService.GetAllInstructionsForRecipe(recipe.RecipeID);
             var commentsBL = commentService.GetAllCommentsForRecipe(recipe.RecipeID);
-           
+            var ratingBL = ratingService.GetRatingByID(recipe.RatingID);
 
             var ingredients = new List<IngredientViewModel>();
             var instructions = new List<InstructionViewModel>();
             var comments = new List<CommentsViewModel>();
+            var rating = new RatingViewModel()
+            {
+                RatingID = ratingBL.RatingID,
+                NumberOfRatings = ratingBL.NumberOfRatings,
+                Score = ratingBL.Score,
+                SumRatings = ratingBL.SumRatings
+            };
+
+
 
             foreach (var i in ingredientsBL)
             {
@@ -198,7 +207,8 @@ namespace RecipesApp.Controllers
                     RecipeID = id
                 });
             }
-
+            recipe.Score = rating.Score;
+            recipe.NrOfRatings = rating.NumberOfRatings;
             recipe.ListIngredients = ingredients;
             recipe.ListInstructions = instructions;
            recipe.ListComments = comments;
