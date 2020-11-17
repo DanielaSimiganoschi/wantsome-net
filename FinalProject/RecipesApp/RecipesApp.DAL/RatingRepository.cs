@@ -1,6 +1,7 @@
 ﻿using RecipesApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,5 +26,18 @@ namespace RecipesApp.DAL
             return rating.RatingID;
          }
 
+        public void Update(Ratings rating)
+        {
+            var ratingInDb = db.Ratings.Find(rating.RatingID);
+
+            if (ratingInDb == null)
+            {
+                return;
+            }
+
+            db.Entry(ratingInDb).CurrentValues.SetValues(rating);
+            db.Entry(ratingInDb).State = EntityState.Modified;
+            db.SaveChanges();
+        }
     }
 }

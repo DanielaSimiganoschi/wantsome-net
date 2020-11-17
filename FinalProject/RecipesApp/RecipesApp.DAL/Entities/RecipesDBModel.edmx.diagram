@@ -26,6 +26,12 @@
         <AssociationConnector Association="RecipesDBModel.FK__Instructi__Recip__4BAC3F29" />
         <EntityTypeShape EntityType="RecipesDBModel.Comments" Width="1.5" PointX="0.75" PointY="0.875" />
         <AssociationConnector Association="RecipesDBModel.FK__CommentsR__Comme__440B1D61" />
+        <EntityTypeShape EntityType="RecipesDBModel.Roles" Width="1.5" PointX="3.75" PointY="17.125" />
+        <EntityTypeShape EntityType="RecipesDBModel.Users" Width="1.5" PointX="6" PointY="16.625" />
+        <EntityTypeShape EntityType="RecipesDBModel.UsersFavouriteRecipes" Width="1.5" PointX="8.25" PointY="10" />
+        <AssociationConnector Association="RecipesDBModel.FK__UsersFavo__Recip__5EBF139D" />
+        <AssociationConnector Association="RecipesDBModel.FK__Users__RoleID__628FA481" />
+        <AssociationConnector Association="RecipesDBModel.FK__UsersFavo__UserI__5FB337D6" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,7 +16,7 @@
 <br /><br />
 <div style="text-align:right">
     @Model.Score -  @Model.NrOfRatings Reviews
-</div> 
+</div>
 <br />
 <div>
     @Model.Description
@@ -72,6 +72,15 @@
         @Html.EditorFor(model => model.NewComment, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.NewComment, "", new { @class = "text-danger" })
     </div>
+    <br />
+    <label>
+        Insert new Rating:
+    </label>
+    <div class="form-group">
+        @Html.EditorFor(model => model.NewRating, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.NewRating, "", new { @class = "text-danger" })
+    </div>
     @Html.HiddenFor(x => Model.RecipeID)
-    <input type="submit" value="Insert Comment" />
+    @Html.HiddenFor(x => Model.RatingID)
+    <input type="submit" value="Insert Comment/Rating" />
 }

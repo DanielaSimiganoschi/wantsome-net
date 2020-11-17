@@ -55,6 +55,15 @@
     <Compile Include="Entities\Comments.cs">
       <DependentUpon>RecipesDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Roles.cs">
+      <DependentUpon>RecipesDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Users.cs">
+      <DependentUpon>RecipesDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\UsersFavouriteRecipes.cs">
+      <DependentUpon>RecipesDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SubcategoryRepository.cs" />
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="Entities\Category.cs">
@@ -109,6 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingRepository.cs" />
     <Compile Include="RecipeRepository.cs" />
+    <Compile Include="UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

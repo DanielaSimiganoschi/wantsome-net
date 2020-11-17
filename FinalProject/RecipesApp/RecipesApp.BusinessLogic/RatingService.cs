@@ -51,5 +51,22 @@ namespace RecipesApp.BusinessLogic
             return ratingBL;
         }
 
+
+        public void UpdateRatingByRatingID(int id, int newScore)
+        {
+           
+            var ratingDAL = ratingRepositoryG.Get(id);
+            decimal newScoreRating = (decimal)(ratingDAL.SumRatings + newScore) / (decimal)(ratingDAL.NumberOfRatings + 1);
+           var ratingDALNew = new Ratings() {
+                RatingID = ratingDAL.RatingID,
+                NumberOfRatings = ratingDAL.NumberOfRatings+1,
+                Score = newScoreRating,
+                SumRatings= ratingDAL.SumRatings + newScore
+              
+           };
+
+            ratingRepository.Update(ratingDALNew);
+
+        }
     }
 }

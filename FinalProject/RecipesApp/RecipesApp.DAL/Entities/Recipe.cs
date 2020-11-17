@@ -22,6 +22,7 @@ namespace RecipesApp.DAL.Entities
             this.IngredientsRecipe = new HashSet<IngredientsRecipe>();
             this.SubcategoryRecipe = new HashSet<SubcategoryRecipe>();
             this.Instructions = new HashSet<Instructions>();
+            this.UsersFavouriteRecipes = new HashSet<UsersFavouriteRecipes>();
         }
     
         public int RecipeID { get; set; }
@@ -44,5 +45,7 @@ namespace RecipesApp.DAL.Entities
         public virtual ICollection<SubcategoryRecipe> SubcategoryRecipe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Instructions> Instructions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersFavouriteRecipes> UsersFavouriteRecipes { get; set; }
     }
 }

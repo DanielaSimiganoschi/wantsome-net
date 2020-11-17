@@ -44,6 +44,16 @@ namespace RecipesApp.BusinessLogic
 
         }
 
+        public void DeleteCommentsForRecipe(int idRecipe)
+        {
+            var commentsForRecipe = commentRepository.GetAllCommentsByRecipeID(idRecipe);
+            foreach(var c in commentsForRecipe)
+            {
+                commentsRecipeRepository.Delete(c.CommentsRecipeID);
+                commentRepositoryG.Delete(c.CommentID);
+            }
+        }
+
         public List<CommentsRecipeBL> GetAllCommentsForRecipe(int idRecipe)
         {
             var listComments = commentRepository.GetAllCommentsByRecipeID(idRecipe); // lista comment ID / RecipeID

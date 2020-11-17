@@ -159,12 +159,12 @@ namespace RecipesApp.BusinessLogic
             var listOfAllCategoriesForRecipe = catRepository.GetAllCategoriesByRecipeID(recipe.RecipeID);
             List<CategoryRecipe> categoriesToInsert = new List<CategoryRecipe>();
 
-            foreach(var c in categoriesRecipe)
+            foreach (var c in categoriesRecipe)
             {
-                  if(!(listOfAllCategoriesForRecipe.Any(prod => prod.CategoryID == c.CategoryID & prod.RecipeID == c.RecipeID)))
+                if (!(listOfAllCategoriesForRecipe.Any(prod => prod.CategoryID == c.CategoryID & prod.RecipeID == c.RecipeID)))
                 {
                     categoriesToInsert.Add(c);
-                } 
+                }
 
             }
 
@@ -221,24 +221,24 @@ namespace RecipesApp.BusinessLogic
 
             }
 
-        
+
         }
 
         public List<int> GetAllRecipeIDSThatAreInCategories(List<int> idSOfCategories)
         {
             var allRecipes = recipeRepositoryG.GetAll();
             var allRecipeIDS = new List<int>();
-            foreach(var r in allRecipes)
+            foreach (var r in allRecipes)
             {
-                var allCategoriesForRecipe=  catRepository.GetAllCategoriesByRecipeID(r.RecipeID);
+                var allCategoriesForRecipe = catRepository.GetAllCategoriesByRecipeID(r.RecipeID);
                 var allIDsOfCategoriesForRecipe = new List<int>();
-                foreach(var i in allCategoriesForRecipe)
+                foreach (var i in allCategoriesForRecipe)
                 {
                     allIDsOfCategoriesForRecipe.Add(i.CategoryID);
                 }
 
                 bool result = idSOfCategories.All(i => allIDsOfCategoriesForRecipe.Contains(i));
-                if(result == true)
+                if (result == true)
                 {
                     allRecipeIDS.Add(r.RecipeID);
                 }
@@ -250,15 +250,15 @@ namespace RecipesApp.BusinessLogic
 
         public List<int> GetAllRecipeIDSThatAreInSubcategories(List<int> idSOfSubcategories)
         {
-            var allRecipes = recipeRepositoryG.GetAll();
+            var allRecipes = recipeRepositoryG.GetAll(); // toate retetele
             var allRecipeIDS = new List<int>();
             foreach (var r in allRecipes)
             {
-                var allSubcategoriesForRecipe = subcatRepository.GetAllSubCategoriesByRecipeID(r.RecipeID);
+                var allSubcategoriesForRecipe = subcatRepository.GetAllSubCategoriesByRecipeID(r.RecipeID); // toate subcat ptr reteta curenta
                 var allIDsOfSubcategoriesForRecipe = new List<int>();
                 foreach (var i in allSubcategoriesForRecipe)
                 {
-                    allIDsOfSubcategoriesForRecipe.Add(i.SubcategoryID);
+                    allIDsOfSubcategoriesForRecipe.Add(i.SubcategoryID); // toate id urile ptr toate retetele - IDsubCat
                 }
 
                 bool result = idSOfSubcategories.All(i => allIDsOfSubcategoriesForRecipe.Contains(i));
@@ -275,16 +275,21 @@ namespace RecipesApp.BusinessLogic
         public List<int> GetRecipesIDSThatHaveStringInName(string name, IEnumerable<int> listIDS)
         {
             var listOfIDs = new List<int>();
-            foreach(int i in listIDS)
+
+            if (listIDS.Count() == 0)
+            {
+                listIDS = GetAllRecipes().Select(i => i.RecipeID);
+            }
+
+            foreach (int i in listIDS)
             {
                 var recipe = recipeRepositoryG.Get(i);
                 var index = recipe.Name.IndexOf(name);
-                if(index != -1)
+                if (index != -1)
                 {
                     listOfIDs.Add(recipe.RecipeID);
                 }
             }
-
             return listOfIDs;
         }
     }

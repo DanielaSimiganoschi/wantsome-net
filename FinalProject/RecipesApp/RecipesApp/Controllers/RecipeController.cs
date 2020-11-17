@@ -32,6 +32,7 @@ namespace RecipesApp.Controllers
 
         }
 
+        [HttpGet]
         // GET: Recipe
         public ActionResult Index()
         {
@@ -51,6 +52,7 @@ namespace RecipesApp.Controllers
             }
             return View(listOfRecipes);
         }
+
 
         [HttpGet]
         public ActionResult Create()
@@ -97,6 +99,7 @@ namespace RecipesApp.Controllers
             return View(x);
 
         }
+
 
         [HttpPost]
         public ActionResult Create(RecipeViewModel recipe)
@@ -211,7 +214,7 @@ namespace RecipesApp.Controllers
             recipe.NrOfRatings = rating.NumberOfRatings;
             recipe.ListIngredients = ingredients;
             recipe.ListInstructions = instructions;
-           recipe.ListComments = comments;
+            recipe.ListComments = comments;
             return View(recipe);
         }
 
@@ -220,10 +223,16 @@ namespace RecipesApp.Controllers
         [ActionName("View")]
         public ActionResult ViewComments(RecipeViewModel recipe)
         {
-            var id = commentService.CreateNewComment(recipe.NewComment);
-            commentService.InsertCommentForRecipe(recipe.RecipeID, id);
+            if (recipe.NewComment != null && recipe.NewComment != "")
+            {
+                var id = commentService.CreateNewComment(recipe.NewComment);
+                commentService.InsertCommentForRecipe(recipe.RecipeID, id);
+            }
 
-            return RedirectToAction("View", "Recipe", new {
+            ratingService.UpdateRatingByRatingID(recipe.RatingID, recipe.NewRating);
+
+            return RedirectToAction("View", "Recipe", new
+            {
                 id = recipe.RecipeID
             });
         }
@@ -384,6 +393,7 @@ namespace RecipesApp.Controllers
             return View(recipe);
         }
 
+
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult DeleteRecipe(RecipeViewModel recipe)
@@ -394,8 +404,10 @@ namespace RecipesApp.Controllers
                 instructionsService.DeleteAllInstructionsForRecipe(recipe.RecipeID);
                 categoryService.DeleteCategoriesForRecipe(recipe.RecipeID);
                 subcategoryService.DeleteSubcategoriesForRecipe(recipe.RecipeID);
+                commentService.DeleteCommentsForRecipe(recipe.RecipeID);
                 recipeService.DeleteRecipeByID(recipe.RecipeID);
                 ratingService.Delete(recipe.RatingID);
+
             }
             return RedirectToAction("Index", "Recipe");
         }
@@ -436,8 +448,8 @@ namespace RecipesApp.Controllers
         {
             List<int> idSCategories = new List<int>();
             List<int> idSSubcategories = new List<int>();
-            List<int> listOfRecipeIDSCat = new List<int>();
-            List<int> listOfRecipeIDSSubcat = new List<int>();
+            List<int> listOfRecipeIDSCat = new List<int>(); // lista retetelor care sunt in cat selectate
+            List<int> listOfRecipeIDSSubcat = new List<int>();// lista retetelor care sunt in subcat selectate
             List<int> listIDs = new List<int>();
             List<int> filteredWithoutName = new List<int>();
 
@@ -457,25 +469,26 @@ namespace RecipesApp.Controllers
                     idSSubcategories.Add(i.SubcategoryID);
                 }
             }
-            if (idSCategories.Count() > 0) {
-                 listOfRecipeIDSCat = recipeService.GetAllRecipeIDSThatAreInCategories(idSCategories);
+            if (idSCategories.Count() > 0)
+            {
+                listOfRecipeIDSCat = recipeService.GetAllRecipeIDSThatAreInCategories(idSCategories);
             }
             if (idSSubcategories.Count() > 0)
             {
-               listOfRecipeIDSSubcat = recipeService.GetAllRecipeIDSThatAreInSubcategories(idSSubcategories);
+                listOfRecipeIDSSubcat = recipeService.GetAllRecipeIDSThatAreInSubcategories(idSSubcategories);
             }
-            
+
 
 
             if (listOfRecipeIDSCat.Count() > 0 && listOfRecipeIDSSubcat.Count() > 0)
             {
                 filteredWithoutName.AddRange(listOfRecipeIDSCat.Intersect(listOfRecipeIDSSubcat).ToList());
             }
-            else if (listOfRecipeIDSCat.Count() > 0)
+            else if (listOfRecipeIDSCat.Count() > 0 && idSSubcategories.Count() == 0)
             {
                 filteredWithoutName.AddRange(listOfRecipeIDSCat);
             }
-            else
+            else if (listOfRecipeIDSSubcat.Count() > 0 && idSCategories.Count() == 0)
             {
                 filteredWithoutName.AddRange(listOfRecipeIDSSubcat);
             }
@@ -492,14 +505,23 @@ namespace RecipesApp.Controllers
                 TempData["ids"] = filteredWithoutName;
             }
 
-            return RedirectToAction("FilterResults", "Recipe");
+            if (filterModel.Name != "" && filteredWithoutName.Count == 0)
+            {
+                return RedirectToAction("Index", "Recipe");
+            }
+            else
+            {
+                return RedirectToAction("FilterResults", "Recipe");
+            }
+
+
         }
 
         [HttpGet]
         public ActionResult FilterResults()
         {
             var ids = new List<int>();
-             ids = TempData["ids"] as List<int>;
+            ids = TempData["ids"] as List<int>;
             List<RecipeViewModel> listOfRecipes = new List<RecipeViewModel>();
             foreach (var i in ids)
             {

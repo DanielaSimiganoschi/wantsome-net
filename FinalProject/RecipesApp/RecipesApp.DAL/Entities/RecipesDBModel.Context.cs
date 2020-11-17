@@ -36,5 +36,8 @@ namespace RecipesApp.DAL.Entities
         public virtual DbSet<SubcategoryRecipe> SubcategoryRecipe { get; set; }
         public virtual DbSet<Instructions> Instructions { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UsersFavouriteRecipes> UsersFavouriteRecipes { get; set; }
     }
 }

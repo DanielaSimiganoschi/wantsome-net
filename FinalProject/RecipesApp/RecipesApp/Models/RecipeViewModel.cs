@@ -31,6 +31,8 @@ namespace RecipesApp.Models
 
         public string NewComment { get; set; }
 
+        public int NewRating { get; set; }
+
         public decimal Score { get; set; }
 
         public int NrOfRatings { get; set; }

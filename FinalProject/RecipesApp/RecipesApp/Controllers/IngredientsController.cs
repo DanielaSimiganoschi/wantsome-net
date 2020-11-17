@@ -9,9 +9,10 @@ using System.Web.Mvc;
 
 namespace RecipesApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class IngredientsController : Controller
     {
-
+       
         private readonly IngredientService ingredientService;
 
 
@@ -49,18 +50,18 @@ namespace RecipesApp.Controllers
         {
             List<IngredientsRecipeBL> ingredientList = new List<IngredientsRecipeBL>();
 
-            foreach(var i in ingredients.ListIngredients)
+            foreach (var i in ingredients.ListIngredients)
             {
                 ingredientList.Add(new IngredientsRecipeBL()
                 {
-                    Quantity=i.Quantity,
-                    Name=i.Name
+                    Quantity = i.Quantity,
+                    Name = i.Name
                 });
             }
 
-            foreach(var i in ingredientList)
+            foreach (var i in ingredientList)
             {
-               var id = ingredientService.CheckIfIngredientExists(i.Name);
+                var id = ingredientService.CheckIfIngredientExists(i.Name);
                 ingredientService.InsertIngredientForRecipe(ingredients.RecipeID, id, i.Quantity);
             }
 
@@ -84,10 +85,10 @@ namespace RecipesApp.Controllers
                 ingredients.ListIngredients.Add(new IngredientViewModel()
                 {
                     IngredientID = i.IngredientID,
-                    Name =name,
+                    Name = name,
                     Quantity = i.Quantity,
                     IngredientRecipeID = i.IngredientsRecipeID
-                    
+
                 });
             }
 
@@ -116,7 +117,7 @@ namespace RecipesApp.Controllers
                 });
             }
 
-            foreach(var i in ingredientList)
+            foreach (var i in ingredientList)
             {
                 ingredientService.Update(i);
             }
